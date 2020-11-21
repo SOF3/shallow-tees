@@ -1,0 +1,8 @@
+[package]
+name = "shallow-tees"
+version = "0.1.0"
+authors = ["SOFe <sofe2038@gmail.com>"]
+edition = "2018"
+description = "A TeeReader implementation that implements Seek by tracking the max read offset"
+repository = "https://github.com/SOF3/shallow-tees"
+license = "Apache-2.0"
