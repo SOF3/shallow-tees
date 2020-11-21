@@ -72,11 +72,11 @@ impl<R: Read + Seek, W: Write> Read for ShallowTees<R, W> {
         self.cur += u64::try_from(size).expect("usize <= u64");
         if self.max < self.cur {
             let delta = usize::try_from(self.cur - self.max).expect("0 < delta <= size < usize");
-            debug_assert!(
-                delta <= size,
-                "self.cur <= self.max but delta > size"
-            );
-            self.write.write_all(buf.get((size - delta)..size).expect("delta <= size <= buf.len()"))?;
+            debug_assert!(delta <= size, "self.cur <= self.max but delta > size");
+            self.write.write_all(
+                buf.get((size - delta)..size)
+                    .expect("delta <= size <= buf.len()"),
+            )?;
         }
         Ok(size)
     }

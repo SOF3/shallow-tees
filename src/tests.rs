@@ -38,10 +38,12 @@ impl<T: AsRef<[u8]>> Seek for SlowCursor<T> {
                     return Err(Error::new(ErrorKind::UnexpectedEof, "seeking behind EOF"));
                 }
                 self.pos -= (-n) as usize;
-            },
+            }
             SeekFrom::Current(n) => {
-                self.pos = ((self.pos as isize) + (n as isize)).try_into().map_err(|_| Error::new(ErrorKind::Other, "seeking before start of file"))?;
-            },
+                self.pos = ((self.pos as isize) + (n as isize))
+                    .try_into()
+                    .map_err(|_| Error::new(ErrorKind::Other, "seeking before start of file"))?;
+            }
         }
 
         if self.pos > self.slice.as_ref().len() {
