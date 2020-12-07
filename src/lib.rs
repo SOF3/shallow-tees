@@ -47,7 +47,11 @@ pub struct ShallowTees<R: Read + Seek, W: Write> {
 
 impl<R: Read + Seek, W: Write> std::fmt::Debug for ShallowTees<R, W> {
     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
-        write!(f, "ShallowTees ( cur = {:?}, max = {:?} )", self.cur, self.max)
+        write!(
+            f,
+            "ShallowTees ( cur = {:?}, max = {:?} )",
+            self.cur, self.max
+        )
     }
 }
 
