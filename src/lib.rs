@@ -45,6 +45,12 @@ pub struct ShallowTees<R: Read + Seek, W: Write> {
     max: u64,
 }
 
+impl<R: Read + Seek, W: Write> std::fmt::Debug for ShallowTees<R, W> {
+    fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+        write!(f, "ShallowTees ( cur = {:?}, max = {:?} )", self.cur, self.max)
+    }
+}
+
 impl<R: Read + Seek, W: Write> ShallowTees<R, W> {
     /// Creates a ShallowTees
     pub fn new(read: R, write: W) -> Self {
@@ -77,6 +83,7 @@ impl<R: Read + Seek, W: Write> Read for ShallowTees<R, W> {
                 buf.get((size - delta)..size)
                     .expect("delta <= size <= buf.len()"),
             )?;
+            self.max += u64::try_from(delta).expect("usize <= u64");
         }
         Ok(size)
     }
